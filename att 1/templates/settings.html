@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="row g-4">
+  <div class="col-lg-6">
+    <div class="card p-4 shadow-sm">
+      <h4 class="fw-bold mb-3">Update Profile</h4>
+      <form method="post">
+        <input type="hidden" name="profile_submit" value="1">
+        <div class="mb-3">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-control" name="name" value="{{ student.name }}" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Roll Number</label>
+          <input type="text" class="form-control" name="roll_number" value="{{ student.roll_number }}" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" name="email" value="{{ student.email }}" required>
+        </div>
+        <button class="btn btn-primary">Save Profile</button>
+      </form>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card p-4 shadow-sm mb-4">
+      <h4 class="fw-bold mb-3">Change Password</h4>
+      <form method="post">
+        <input type="hidden" name="password_submit" value="1">
+        <div class="mb-3">
+          <label class="form-label">Current Password</label>
+          <input type="password" class="form-control" name="current_password" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">New Password</label>
+          <input type="password" class="form-control" name="new_password" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Confirm Password</label>
+          <input type="password" class="form-control" name="confirm_password" required>
+        </div>
+        <button class="btn btn-primary">Update Password</button>
+      </form>
+    </div>
+    <div class="card p-4 shadow-sm">
+      <h4 class="fw-bold mb-3">Preferences</h4>
+      <form method="post">
+        <input type="hidden" name="settings_submit" value="1">
+        <div class="mb-3">
+          <label class="form-label">Default Minimum Attendance</label>
+          <input type="number" class="form-control" name="default_minimum_attendance" value="{{ student.default_minimum_attendance }}" min="0" max="100">
+        </div>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" name="dark_mode" value="1" {% if student.dark_mode %}checked{% endif %}>
+          <label class="form-check-label">Dark Mode</label>
+        </div>
+        <button class="btn btn-primary mt-3">Save Settings</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

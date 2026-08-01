@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-7">
+    <div class="card p-4 shadow-sm">
+      <h3 class="fw-bold mb-3">Add Subject</h3>
+      <form method="post">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Subject Name</label>
+            <input type="text" class="form-control" name="subject_name" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Faculty Name</label>
+            <input type="text" class="form-control" name="faculty_name" required>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Minimum Attendance</label>
+            <input type="number" class="form-control" name="minimum_attendance" value="75" min="0" max="100" required>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Total Classes</label>
+            <input type="number" class="form-control" name="total_classes" min="0" required>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Classes Attended</label>
+            <input type="number" class="form-control" name="present_classes" min="0" required>
+          </div>
+        </div>
+        <button class="btn btn-primary mt-4">Save Subject</button>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-outline-secondary mt-4 ms-2">Cancel</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

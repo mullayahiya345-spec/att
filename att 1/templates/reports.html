@@ -1,0 +1,71 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h3 class="fw-bold mb-0">Reports</h3>
+  <div>
+    <a href="{{ url_for('export_pdf') }}" class="btn btn-outline-danger me-2">Download PDF</a>
+    <a href="{{ url_for('export_excel') }}" class="btn btn-outline-success">Download Excel</a>
+  </div>
+</div>
+
+<div class="card p-4 shadow-sm mb-4">
+  <form class="row g-3" method="get">
+    <div class="col-md-5">
+      <input class="form-control" type="text" name="q" value="{{ query }}" placeholder="Search subject or faculty">
+    </div>
+    <div class="col-md-3">
+      <select class="form-select" name="status">
+        <option value="all" {% if status_filter == 'all' %}selected{% endif %}>All</option>
+        <option value="safe" {% if status_filter == 'safe' %}selected{% endif %}>Safe</option>
+        <option value="warning" {% if status_filter == 'warning' %}selected{% endif %}>Warning</option>
+        <option value="critical" {% if status_filter == 'critical' %}selected{% endif %}>Critical</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <select class="form-select" name="sort">
+        <option value="name" {% if sort_by == 'name' %}selected{% endif %}>Sort by Name</option>
+        <option value="faculty" {% if sort_by == 'faculty' %}selected{% endif %}>Sort by Faculty</option>
+        <option value="attendance" {% if sort_by == 'attendance' %}selected{% endif %}>Sort by Attendance</option>
+      </select>
+    </div>
+    <div class="col-md-1">
+      <button class="btn btn-primary w-100">Go</button>
+    </div>
+  </form>
+</div>
+
+<div class="card p-4 shadow-sm">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>Faculty</th>
+          <th>Present</th>
+          <th>Absent</th>
+          <th>Total</th>
+          <th>Attendance %</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for subject in subjects %}
+        {% set percent = (subject.present_classes / subject.total_classes * 100) if subject.total_classes else 0 %}
+        {% set label, badge_class = get_status_label(percent) %}
+        <tr>
+          <td>{{ subject.subject_name }}</td>
+          <td>{{ subject.faculty_name }}</td>
+          <td>{{ subject.present_classes }}</td>
+          <td>{{ subject.total_classes - subject.present_classes }}</td>
+          <td>{{ subject.total_classes }}</td>
+          <td>{{ percent }}%</td>
+          <td><span class="badge rounded-pill badge-{{ badge_class }}">{{ label }}</span></td>
+        </tr>
+        {% else %}
+        <tr><td colspan="7" class="text-center text-muted">No subjects found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

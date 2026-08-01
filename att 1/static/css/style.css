@@ -1,0 +1,112 @@
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --secondary: #eff6ff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --success: #16a34a;
+  --warning: #f59e0b;
+  --danger: #dc2626;
+  --card-bg: #ffffff;
+  --body-bg: #f8fafc;
+  --border: #e2e8f0;
+}
+
+body {
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--body-bg);
+  color: var(--text);
+}
+
+body.dark-theme {
+  --primary: #60a5fa;
+  --primary-dark: #3b82f6;
+  --secondary: #111827;
+  --text: #f9fafb;
+  --muted: #9ca3af;
+  --success: #34d399;
+  --warning: #fbbf24;
+  --danger: #f87171;
+  --card-bg: #1f2937;
+  --body-bg: #111827;
+  --border: #374151;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  color: var(--primary) !important;
+}
+
+.card {
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(37, 99, 235, 0.12);
+}
+
+.badge-safe {
+  background-color: rgba(22, 163, 74, 0.15);
+  color: var(--success);
+}
+
+.badge-warning {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: var(--warning);
+}
+
+.badge-danger {
+  background-color: rgba(220, 38, 38, 0.15);
+  color: var(--danger);
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
+.form-control, .form-select {
+  border-radius: 10px;
+}
+
+.stat-card {
+  min-height: 140px;
+}
+
+.subject-card {
+  border-left: 4px solid var(--primary);
+}
+
+.hero-panel {
+  background: linear-gradient(135deg, var(--secondary), rgba(37, 99, 235, 0.08));
+}
+
+.table thead {
+  background-color: var(--secondary);
+}
+
+.table td, .table th {
+  vertical-align: middle;
+}
+
+.footer-note {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.toast-box {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 1100;
+}

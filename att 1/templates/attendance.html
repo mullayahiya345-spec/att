@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h3 class="fw-bold mb-0">Attendance Entry</h3>
+  <a href="{{ url_for('add_subject') }}" class="btn btn-primary">Add Subject</a>
+</div>
+
+<div class="card p-4 shadow-sm mb-4">
+  <h5 class="fw-bold mb-3">Mark Today's Attendance</h5>
+  {% for subject in subjects %}
+  <div class="card subject-card p-3 mb-3">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <h6 class="fw-bold mb-1">{{ subject.subject_name }}</h6>
+        <p class="text-muted mb-0">{{ subject.faculty_name }}</p>
+      </div>
+      <div class="text-end">
+        <span class="badge rounded-pill" id="badge-{{ subject.id }}">{{ subject.present_classes }}/{{ subject.total_classes }}</span>
+        <div class="mt-2">
+          <button class="btn btn-outline-success btn-sm attendance-btn" data-subject-id="{{ subject.id }}" data-status="present">Present</button>
+          <button class="btn btn-outline-danger btn-sm attendance-btn" data-subject-id="{{ subject.id }}" data-status="absent">Absent</button>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3">
+      <div class="d-flex justify-content-between text-muted small">
+        <span>Attendance</span>
+        <span id="percent-{{ subject.id }}">{{ (subject.present_classes / subject.total_classes * 100) if subject.total_classes else 0 }}%</span>
+      </div>
+      <div class="progress" style="height: 8px;">
+        <div class="progress-bar" role="progressbar" style="width: {{ (subject.present_classes / subject.total_classes * 100) if subject.total_classes else 0 }}%;"></div>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <p class="text-muted">No subjects available. Add a subject to begin tracking attendance.</p>
+  {% endfor %}
+</div>
+
+<div class="card p-4 shadow-sm">
+  <h5 class="fw-bold mb-3">Recent Entries</h5>
+  <ul class="list-group list-group-flush">
+    {% for entry in recent_entries %}
+    <li class="list-group-item d-flex justify-content-between">
+      <span>{{ entry.subject.subject_name }} - {{ entry.status|title }}</span>
+      <span class="text-muted">{{ entry.date }} {{ entry.time }}</span>
+    </li>
+    {% else %}
+    <li class="list-group-item text-muted">No recent attendance entries.</li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div id="attendanceMessage" class="mt-3 text-primary"></div>
+{% endblock %}
